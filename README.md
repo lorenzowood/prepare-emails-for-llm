@@ -43,19 +43,42 @@ This utility processes directories of EML email files and converts them into a s
    pip install -r requirements.txt
    ```
 
-## Usage
+## Two Versions Available
 
-### Basic Usage
+### 1. Enhanced Version (Recommended) - `prepare-for-llm-enhanced.py`
+
+**Best for NotebookLM** - Extracts text from PDFs/DOCX and bundles images
+
+**What it does:**
+- Extracts text from PDF and DOCX files → includes inline in markdown
+- Bundles all images into a single PDF
+- Saves only truly binary files separately
+- **Result: Just 2-3 files to upload!**
+
+```bash
+python prepare-for-llm-enhanced.py --input <email_directory> --output <output_directory>
+```
+
+### 2. Original Version - `prepare-for-llm.py`
+
+Saves all attachments as separate files (578 files)
 
 ```bash
 python prepare-for-llm.py --input <email_directory> --output <output_directory>
 ```
 
-### Example
+## Usage
+
+### Recommended: Enhanced Version
 
 ```bash
-python prepare-for-llm.py --input ../outlook-downloader/emails_comprehensive --output prepared-for-llm
+python prepare-for-llm-enhanced.py --input ../outlook-downloader/emails_comprehensive --output prepared-enhanced
 ```
+
+**Example output:**
+- `emails.md` (757KB) - All emails + extracted PDF/DOCX text
+- `images-bundle.pdf` (67MB) - 479 images combined
+- `binary-files/` (6 files) - Remaining binary attachments
 
 ### Command-line Options
 
@@ -138,7 +161,32 @@ See the email below...
 Original message content here...
 ```
 
+## Enhanced Version Results
+
+Testing with 303 emails and 578 attachments:
+
+**Text Extraction:**
+- ✅ 87 PDFs extracted and included inline
+- ✅ 2 DOCX files extracted and included inline
+- ✅ Text content now searchable in main file
+
+**File Reduction:**
+- **Before:** 578 separate attachment files
+- **After:** 2-3 files total (emails.md + images-bundle.pdf + 6 binary files)
+- **Reduction:** 99% fewer files!
+
 ## Using with NotebookLM
+
+### Enhanced Version (Easiest)
+
+**Just upload 2-3 files:**
+1. `emails.md` (contains all text content)
+2. `images-bundle.pdf` (if you need image references)
+3. Optional: Select specific files from `binary-files/` if needed
+
+All email text and attachment text is now searchable in one file!
+
+### Original Version
 
 NotebookLM has a 50-file upload limit. Here's how to use the output:
 
