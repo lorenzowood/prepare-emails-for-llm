@@ -40,6 +40,8 @@ Thumbs.db
 # Output directories
 output/
 prepared-for-llm/
+prepared-enhanced/
+prepared*/
 test-output/
 
 # Test data
